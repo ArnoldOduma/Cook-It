@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CookIT</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_main">Cook It</string>
+    <string name="name">Name</string>
+    <string name="continueText">Continue</string>
+
+    <string name="title_activity_home">Cook It</string>
+    <string name="checkOuTextview">This is a recipe on chicken tikka which is a very delicious kind of chicken. Tyr it out today for finger licking goodness</string>
+    <string name="crispy_chicken">Crispy Fried Chicken</string>
+    <string name="title_activity_cook">CookActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="rate_me_fragment">Rate this Recipe</string>
+</resources>
