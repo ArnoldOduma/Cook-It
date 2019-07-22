@@ -13,19 +13,33 @@
 
 
     <ScrollView
+        android:id="@+id/cookScrollView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="0sp">
+
+
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingHorizontal="20sp"
+                android:layout_row="1"
+                android:layout_column="5">
+
+            </FrameLayout>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
+                android:layout_row="2"
                 android:layout_column="5"
                 android:adjustViewBounds="true"
                 android:src="@drawable/back" />
@@ -34,7 +48,7 @@
                 android:id="@+id/text1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
+                android:layout_row="3"
                 android:layout_column="5"
                 android:layout_marginTop="-400sp"
                 android:layout_marginBottom="100sp"
@@ -45,7 +59,7 @@
                 android:textSize="40sp" />
 
             <LinearLayout
-                android:layout_row="3"
+                android:layout_row="4"
                 android:layout_column="5"
                 android:layout_width="match_parent"
                 android:layout_marginStart="10sp"
@@ -78,14 +92,6 @@
 
             </LinearLayout>
 
-            <RatingBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_row="4"
-                android:numStars="5"
-                android:rating="4.4"
-                android:stepSize="@android:integer/config_shortAnimTime"/>
 
             <!--<ImageView-->
                 <!--android:id="@+id/image1"-->
@@ -104,7 +110,7 @@
                 android:layout_marginTop="0sp"
                 android:layout_marginBottom="10sp"
                 android:layout_marginStart="10sp"
-                android:layout_row="5"
+                android:layout_row="6"
                 android:layout_column="5"
                 android:text="Ingredients"
                 android:textColor="@color/secondaryTextColor"
@@ -112,7 +118,7 @@
 
             <ListView
                 android:id="@+id/ingredientsListView"
-                android:layout_row="6"
+                android:layout_row="7"
                 android:layout_width="match_parent"
                 android:layout_height="380dp"
                 android:layout_marginStart="10sp"
@@ -155,9 +161,5 @@
 
     </ScrollView>
 
-    <fragment
-        class="com.techspaceke.cookit.RateFragment"
-        android:id="@+id/detail_frag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 </LinearLayout>

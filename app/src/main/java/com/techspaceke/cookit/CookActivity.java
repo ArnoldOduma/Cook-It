@@ -1,5 +1,6 @@
 package com.techspaceke.cookit;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -14,10 +15,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class CookActivity extends AppCompatActivity {
     @BindView(R.id.fab) FloatingActionButton fab;
@@ -28,6 +34,7 @@ public class CookActivity extends AppCompatActivity {
     @BindView(R.id.instruction) TextView mInstruction;
     @BindView(R.id.serving) TextView mServing;
     @BindView(R.id.preparation) TextView mPreparation;
+    @BindView(R.id.cookScrollView) ScrollView mCookScrollView;
 
     private String[] ingredients = {
             "4 cups all-purpose flour, divided ",
@@ -58,15 +65,22 @@ public class CookActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        mCookScrollView.fullScroll(ScrollView.FOCUS_UP);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Rate this Recipe", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                mCookScrollView.fullScroll(ScrollView.FOCUS_UP);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RateFragment()).commit();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -95,10 +109,23 @@ public class CookActivity extends AppCompatActivity {
 //                    .commit();
 //        }
 
-        RateFragment fragment = (RateFragment)
-                getSupportFragmentManager().findFragmentById(R.id.detail_frag);
+
+
+
+//        RateFragment fragment = (RateFragment)
+//                getSupportFragmentManager().findFragmentById(R.id.detail_frag);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/default.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
 
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 }
