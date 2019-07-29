@@ -1,5 +1,10 @@
 <resources>
 
+    <!--Material theme-->
+    <style name="Theme.MyApp" parent="ThemeOverlay.MaterialComponents.Dark">
+
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
