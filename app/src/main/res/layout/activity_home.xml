@@ -12,7 +12,7 @@
     android:layout_height="700dp"
     android:background="@color/secondaryTextColor"
     android:paddingHorizontal="10sp"
-    tools:context=".HomeActivity">
+    tools:context=".ui.HomeActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
