@@ -32,6 +32,5 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mAdapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);
         mViewpager.setAdapter(mAdapterViewPager);
         mViewpager.setCurrentItem(startingPosition);
-
     }
 }
