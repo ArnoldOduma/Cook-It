@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,6 +21,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -41,6 +45,19 @@ public class RecipesActivity extends AppCompatActivity {
         String meal = intent.getStringExtra("meal");
         mRecipeKeyedResult.setText("Results for " + meal);
         getRecipes(meal);
+
+        Typeface scope = Typeface.createFromAsset(getAssets(),"fonts/scope.ttf");
+        mRecipeKeyedResult.setTypeface(scope);
+
+        //import font
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/bodoni.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
     }
 
     private void getRecipes(String meal){
@@ -51,8 +68,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-//
+            public void onResponse(Call call, Response response) throws IOException {//
 //                ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);
 //                String jsonData = responseBody.string();
 //                Log.e(TAG, jsonData);
