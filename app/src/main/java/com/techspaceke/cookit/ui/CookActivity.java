@@ -1,4 +1,4 @@
-package com.techspaceke.cookit;
+package com.techspaceke.cookit.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -6,12 +6,11 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.techspaceke.cookit.adapters.IngredientsArrayAdapter;
+import com.techspaceke.cookit.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.View;
 import android.widget.ListView;
