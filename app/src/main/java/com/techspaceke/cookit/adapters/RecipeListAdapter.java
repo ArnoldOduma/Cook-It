@@ -2,6 +2,7 @@ package com.techspaceke.cookit.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
@@ -57,6 +61,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         @BindView(R.id.recipeCategoryTextView) TextView mRecipeCategoryTextView;
         @BindView(R.id.recipeAreaTextView) TextView mRecipeAreaTextView;
         @BindView(R.id.recipeNameTextView) TextView mRecipeNameTextView;
+
 
         private Context mContext;
 
