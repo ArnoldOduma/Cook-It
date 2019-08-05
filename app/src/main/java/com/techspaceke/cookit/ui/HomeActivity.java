@@ -81,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "When the activity is created");
 
         //Default font
+        Typeface caviarDreams = Typeface.createFromAsset(getAssets(),"fonts/caviar_dreams.ttf");
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()

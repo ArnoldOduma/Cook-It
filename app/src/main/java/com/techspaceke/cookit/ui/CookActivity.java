@@ -60,15 +60,10 @@ public class CookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook);
-
         ButterKnife.bind(this);
-
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        
         mCookScrollView.fullScroll(ScrollView.FOCUS_UP);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -98,21 +93,6 @@ public class CookActivity extends AppCompatActivity {
         IngredientsArrayAdapter directionAdapter = new IngredientsArrayAdapter(this, instructions, R.id.directions_TextView,R.layout.direction_item);
         mDirectionsListView.setAdapter(directionAdapter);
 
-
-//        FragmentManager fm = getSupportFragmentManager();
-//        Fragment fragment = fm.findFragmentById(R.id.detail_frag);
-//        if (fragment == null) {
-//            fragment = new RateFragment();
-//            fm.beginTransaction()
-//                    .add(R.id.fragment_container, fragment)
-//                    .commit();
-//        }
-
-
-
-
-//        RateFragment fragment = (RateFragment)
-//                getSupportFragmentManager().findFragmentById(R.id.detail_frag);
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
@@ -120,7 +100,6 @@ public class CookActivity extends AppCompatActivity {
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
-
     }
 
     @Override

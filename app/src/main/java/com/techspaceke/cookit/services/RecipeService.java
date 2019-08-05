@@ -30,7 +30,6 @@ public class RecipeService {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MEALDB_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.MEALDB_NAME_QUERY_PARAMETER, meal);
         String url = urlBuilder.build().toString();
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();
