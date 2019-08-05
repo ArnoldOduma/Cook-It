@@ -27,9 +27,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="-60sp"
+                android:layout_marginBottom="10sp"
                 android:layout_marginHorizontal="10sp"
-                android:padding="5sp"
-                android:background="@drawable/rectangle">
+                android:padding="10sp"
+                android:background="@drawable/rectangle"
+                android:elevation="4dp">
 
             <TextView
                 android:id="@+id/titleTextView"
@@ -37,17 +39,25 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textSize="25sp"
-                android:layout_marginBottom="50sp"/>
+                android:layout_marginBottom="30sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:padding="10sp"
+                android:textColor="@color/primaryColor"
+                android:elevation="4dp"
+                android:background="@drawable/rectangle" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingredients"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textColor="@color/primaryColor"/>
 
             <ListView
                 android:id="@+id/ingredientsListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="30sp"
+                android:transcriptMode="normal">
 
             </ListView>
 
@@ -55,7 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Instructions"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textColor="@color/primaryColor" />
             <TextView
                 android:id="@+id/instructionsTextView"
                 android:layout_width="match_parent"

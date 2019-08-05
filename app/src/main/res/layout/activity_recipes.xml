@@ -5,21 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.RecipesActivity">
-    <TextView
-        android:id="@+id/recipeKeyedResult"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Recipes"
-        android:textSize="20sp"
-        android:gravity="center_horizontal"/>
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="9dp"
+        android:background="@drawable/rectangle"
+        android:elevation="4dp"
+        app:layout_scrollFlags="scroll|enterAlways"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:background="@color/secondaryTextColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp">
+        android:layout_height="wrap_content"
+        android:paddingTop="66dp"
+        android:paddingHorizontal="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/recipeKeyedResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:text="Recipes"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="@+id/recipeKeyedResult"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="342dp"
+        android:backgroundTint="@color/secondaryTextColor" />
 
 </RelativeLayout>
