@@ -3,6 +3,7 @@ package com.techspaceke.cookit.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.techspaceke.cookit.R;
@@ -15,6 +16,10 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class RecipeDetailActivity extends AppCompatActivity {
     @BindView(R.id.viewPager) ViewPager mViewpager;
@@ -32,5 +37,18 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mAdapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);
         mViewpager.setAdapter(mAdapterViewPager);
         mViewpager.setCurrentItem(startingPosition);
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/sans_pro.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
     }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
+
 }
