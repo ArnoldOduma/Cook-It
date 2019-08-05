@@ -3,6 +3,7 @@ package com.techspaceke.cookit.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,10 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 
+
+
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
+    String TAG = RecipeListAdapter.class.getSimpleName();
 
 
     private List<Recipes> mRecipes = new ArrayList<>();
@@ -73,6 +77,21 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         }
 
         public void bindRecipe(Recipes recipe) {
+//            List<String> ingredients = new ArrayList<>();
+//            String ing = "yes";
+//            String ing1 = "One";
+//            String ing2 = "two";
+//            String ing3 = "";
+//            String ing4 = "four";
+//
+//            for (Integer i = 1; i < 20; i++) {
+//                if (recipe.getStrIngredient1().isEmpty()){
+//                }else {
+//                    ingredients.add(ing+i);
+//                    String ingre = i.toString();
+//                    Log.e(TAG, "This is " + recipe.getStrIngredient.());
+//                }
+//            }
             Picasso.get().load(recipe.getStrMealThumb()).into(mRecipeImageView);
             mRecipeNameTextView.setText(recipe.getStrMeal());
             mRecipeCategoryTextView.setText(recipe.getStrCategory());

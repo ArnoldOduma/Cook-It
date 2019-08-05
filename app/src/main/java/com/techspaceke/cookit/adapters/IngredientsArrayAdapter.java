@@ -1,4 +1,4 @@
-package com.techspaceke.cookit;
+package com.techspaceke.cookit.adapters;
 
 import android.content.Context;
 import android.text.Layout;
@@ -15,7 +15,7 @@ public class IngredientsArrayAdapter extends BaseAdapter {
     private int mTextView;
     private int mLayout;
 
-    public IngredientsArrayAdapter(Context mContext, String[] ingredients, int listItem, int layout){
+    public IngredientsArrayAdapter(Context mContext, String[] ingredients, int listItem, int layout) {
         this.mContext = mContext;
         this.mIngredients = ingredients;
         this.mTextView = listItem;
@@ -28,7 +28,9 @@ public class IngredientsArrayAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount(){ return mIngredients.length; }
+    public int getCount() {
+        return mIngredients.length;
+    }
 
 
     @Override
@@ -41,14 +43,14 @@ public class IngredientsArrayAdapter extends BaseAdapter {
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View listView;
-        if (convertView == null){
-            listView = inflater.inflate(mLayout,null);
+        if (convertView == null) {
+            listView = inflater.inflate(mLayout, null);
 
             TextView listItemView = listView.findViewById(mTextView);
 
             listItemView.setText(String.valueOf(mIngredients[position]));
 
-        }else {
+        } else {
             listView = convertView;
         }
         return listView;
