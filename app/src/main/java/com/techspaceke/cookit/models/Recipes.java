@@ -163,6 +163,8 @@ public class Recipes {
     @Expose
     private transient   Object dateModified;
 
+    private String pushId;
+
     /**
      * No args constructor for use in serialization
      * 
@@ -687,4 +689,11 @@ public class Recipes {
         this.dateModified = dateModified;
     }
 
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 }

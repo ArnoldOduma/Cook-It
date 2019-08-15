@@ -3,6 +3,8 @@
     package="com.techspaceke.cookit">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,22 @@
         android:roundIcon="@mipmap/ic_cook_it"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.SavedRecipeListActivity"
+            android:label="Saved Recipes"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.techspaceke.cookit.ui.MainActivity" />
+        </activity>
         <activity
             android:name=".ui.SignUpActivity"
             android:label="@string/title_activity_main"
@@ -22,27 +40,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.RecipeDetailActivity" />
-        <activity android:name=".ui.RecipesActivity"
+        <activity
+            android:name=".ui.RecipesActivity"
             android:label="Cook It"
             android:parentActivityName=".ui.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techspaceke.cookit.ui.MainActivity" />
-        </activity>
-        <activity
-            android:name=".ui.CookActivity"
-            android:label="@string/title_activity_cook"
-            android:parentActivityName=".ui.HomeActivity"
-            android:theme="@style/FullscreenTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techspaceke.cookit.ui.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".ui.HomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_home"
-            android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.techspaceke.cookit.ui.MainActivity" />
@@ -51,12 +52,13 @@
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
 
-             <intent-filter>
-                 <action android:name="android.intent.action.SEARCH"/>
-             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
     </application>
 

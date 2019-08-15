@@ -14,6 +14,13 @@
     <color name="secondaryDarkColor">#000000</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
+    <color name="gray">#f0f0f0</color>
+
+    <color name="translucentPrimaryColor">#60ff9c00</color>
+    <color name="translucentPrimaryLightColor">#90ffcd48</color>
+    <color name="translucentSecondaryDarkColor">#90000000</color>
+    <color name="translucentGray">#d9f0f0f0</color>
+    <color name="translucentWhite">#d9ffffff</color>
 
     <color name="secondaryColor_overlay">#99f0f0f0</color>
 </resources>

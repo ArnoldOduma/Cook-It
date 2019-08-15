@@ -1,14 +1,24 @@
 package com.techspaceke.cookit.ui;
 
+import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.techspaceke.cookit.Constants;
 import com.techspaceke.cookit.R;
 import com.techspaceke.cookit.models.Categories;
 import com.techspaceke.cookit.services.CategoriesService;
@@ -17,8 +27,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +39,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -50,32 +63,60 @@ import okhttp3.ResponseBody;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MainActivity.class.getSimpleName() ;
-    @BindView(R.id.search_button) ImageButton mSearchButton;
-    @BindView(R.id.searchEditText) EditText mSearchEditText;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    public List<Categories> categoriesList = new ArrayList<>();
+    private DatabaseReference mSearchedRecipeRef;
+    private ValueEventListener mSearchedRecipeRefListener;
+    FirebaseUser mUser;
+
+
     @BindView(R.id.beef) ImageButton mBeefImageButton;
     @BindView(R.id.chickenImageButton) ImageButton mChickenImageButton;
     @BindView(R.id.porkImageButton) ImageButton mPorkImageButton;
     @BindView(R.id.fishImageButton) ImageButton mFishImageButton;
+    @BindView(R.id.favouritesImageViewBtn) ImageView mFavouritesImageViewButton;
     @BindView(R.id.httpProgressBar) ProgressBar mProgressBar;
     @BindView(R.id.my_toolbar) Toolbar mToolBar;
-
-    public List<Categories> categoriesList = new ArrayList<>();
+    @BindView(R.id.desc) TextView mDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSearchedRecipeRef = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_RECIPES);
+
+        mSearchedRecipeRefListener = mSearchedRecipeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()){
+                    String recipe = recipeSnapshot.getValue().toString();
+                    Log.e("Recipe Updated firebase", recipe);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolBar);
         mToolBar.getOverflowIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-        Typeface caviarDreams = Typeface.createFromAsset(getAssets(),"fonts/caviar_dreams.ttf");
-        Typeface bebasRegular = Typeface.createFromAsset(getAssets(), "fonts/Bebas-Regular.otf");
-        listCategories();
-//        hideProgressDialog();
-        showProgressDialog();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+//        mDesc.setText("Welcome"+mUser.getDisplayName().split(" "));
+
+        hideProgressDialog();
         //OnClick listeners
-        mSearchButton.setOnClickListener(this);
+        mFavouritesImageViewButton.setOnClickListener(this);
 
         ViewPump.init(ViewPump.builder()
         .addInterceptor(new CalligraphyInterceptor(
@@ -107,31 +148,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.drawer, menu);
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Search recipes");
+        searchView.setElevation(4);
+        searchView.setPadding(10,0,10,0);
 
-//        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-//        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-//        SearchView searchView =  null;
-//        if (searchItem != null){
-//            searchView = (SearchView) searchItem.getActionView();
-//        }
-//        if (searchView != null){
-//            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
-//            Toast.makeText(MainActivity.this, "Hurray Searching", Toast.LENGTH_SHORT).show();
-//        }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Intent intent = new Intent(MainActivity.this, RecipesActivity.class);
+                intent.putExtra("meal", s);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
     }
-
-//    @Override
-//    public boolean onSearchRequested() {
-//        Bundle appData = new Bundle();
-//        appData.putBoolean(SearchManager);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-//        SearchView searchView = (SearchView) findViewById(R.id.app_bar_search);
         switch (item.getItemId()){
             case R.id.action_settings:
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
@@ -165,7 +208,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                hideProgressDialog();
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                    }
+                });
+
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {//
@@ -179,30 +228,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
 
                         hideProgressDialog();
-//                        mAdapter = new RecipeListAdapter(getApplicationContext(), recipesList);
-//                        mRecyclerView.setAdapter(mAdapter);
-//                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipesActivity.this);
-//                        mRecyclerView.setLayoutManager(layoutManager);
-//                        mRecyclerView.setHasFixedSize(true);
+//
                     }
                 });
             }
         });
     }
 
+    public void saveRecipeToFirebase(String recipe) {
+
+        mSearchedRecipeRef.push().setValue(recipe);
+    }
+
+    private void addToSharedPreferences(String recipe){
+        mEditor.putString(Constants.PREFERENCES_RECIPE_KEY, recipe).apply();
+    }
+
     @Override
     public void onClick(View view) {
         ButterKnife.bind(this);
-        if (view == mSearchButton) {
-            if (TextUtils.isEmpty(mSearchEditText.getText())) {
-                Toast.makeText(this, "Please enter a meal", Toast.LENGTH_SHORT).show();
-
-            } else {
-                String meal = mSearchEditText.getText().toString();
-                Intent intent = new Intent(MainActivity.this, RecipesActivity.class);
-                intent.putExtra("meal", meal);
-                startActivity(intent);
-            }
+        if (view == mFavouritesImageViewButton){
+            Intent intent = new Intent(this, SavedRecipeListActivity.class);
+            startActivity(intent);
         }
 
     }
@@ -226,6 +273,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void beef(View view) {
         Intent intent = new Intent(MainActivity.this, RecipesActivity.class);
         intent.putExtra("meal", "beef");
+
+        Pair[] pairs = new Pair[1];
+        pairs[0] = new Pair<View, String>(mBeefImageButton, "mealTransition");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+
         startActivity(intent);
     }
     public void chicken(View view) {
@@ -242,5 +294,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(MainActivity.this, RecipesActivity.class);
         intent.putExtra("meal", "pork");
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearchedRecipeRef.removeEventListener(mSearchedRecipeRefListener);
     }
 }

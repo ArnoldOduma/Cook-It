@@ -7,8 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +25,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,25 +81,19 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         }
 
         public void bindRecipe(Recipes recipe) {
-//            List<String> ingredients = new ArrayList<>();
-//            String ing = "yes";
-//            String ing1 = "One";
-//            String ing2 = "two";
-//            String ing3 = "";
-//            String ing4 = "four";
-//
-//            for (Integer i = 1; i < 20; i++) {
-//                if (recipe.getStrIngredient1().isEmpty()){
-//                }else {
-//                    ingredients.add(ing+i);
-//                    String ingre = i.toString();
-//                    Log.e(TAG, "This is " + recipe.getStrIngredient.());
-//                }
-//            }
+
             Picasso.get().load(recipe.getStrMealThumb()).into(mRecipeImageView);
             mRecipeNameTextView.setText(recipe.getStrMeal());
             mRecipeCategoryTextView.setText(recipe.getStrCategory());
             mRecipeAreaTextView.setText(recipe.getStrArea());
+//            String video = recipe.getStrYoutube();
+//            WebView videoWeb;
+//            videoWeb = (WebView) itemView.findViewById(R.id.recipeVideoView);
+//            videoWeb.getSettings().setJavaScriptEnabled(true);
+//            videoWeb.setWebChromeClient(new WebChromeClient(){});
+//
+//            Vector<You>
+
         }
 
 

@@ -9,10 +9,12 @@ import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.techspaceke.cookit.Constants;
 import com.techspaceke.cookit.R;
 import com.techspaceke.cookit.adapters.RecipeListAdapter;
 import com.techspaceke.cookit.models.Recipes;
@@ -49,6 +52,9 @@ import okhttp3.ResponseBody;
 
 public class RecipesActivity extends AppCompatActivity {
     private static final String TAG = RecipesActivity.class.getSimpleName();
+    private SharedPreferences mSharedPreferences;
+    private String mRecentRecipe;
+
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView ;
     @BindView(R.id.recipeKeyedResult) TextView mRecipeKeyedResult;
     @BindView(R.id.progressBar2) ProgressBar mProgressBar;
@@ -66,28 +72,24 @@ public class RecipesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolBar.getOverflowIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentRecipe = mSharedPreferences.getString(Constants.PREFERENCES_RECIPE_KEY, null);
+
+        showProgressDialog();
 
         Intent intent = getIntent();
         String meal = intent.getStringExtra("meal");
         mRecipeKeyedResult.setText("Results for " + meal);
         getRecipes(meal);
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())){
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            getRecipes(meal);
-        }
-
-        showProgressDialog();
 
         Typeface scope = Typeface.createFromAsset(getAssets(),"fonts/scope.ttf");
         mRecipeKeyedResult.setTypeface(scope);
-
-
 
         //import font
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/sans_pro.ttf")
+                                .setDefaultFontPath("fonts/poppins.ttf")
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
@@ -97,9 +99,6 @@ public class RecipesActivity extends AppCompatActivity {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
-    private void timeOut(){
-
-    }
     private void getRecipes(String meal){
         RecipeService.findRecipes(meal, new Callback() {
 
