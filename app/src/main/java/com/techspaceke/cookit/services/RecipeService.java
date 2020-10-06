@@ -27,8 +27,8 @@ public class RecipeService {
     public static void findRecipes(String meal  , Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MEALDB_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.MEALDB_NAME_QUERY_PARAMETER, meal);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MEALDB_SEARCH_URL).newBuilder();
+        urlBuilder.addQueryParameter(Constants.MEALDB_NAME_QUERY_PARAM, meal);
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder()
                 .url(url)

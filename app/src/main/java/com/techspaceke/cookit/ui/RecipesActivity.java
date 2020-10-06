@@ -71,15 +71,16 @@ public class RecipesActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolBar.getOverflowIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-
+        Intent intent = getIntent();
+        String meal = intent.getStringExtra("meal");
+        mToolBar.setTitle("hello");
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRecentRecipe = mSharedPreferences.getString(Constants.PREFERENCES_RECIPE_KEY, null);
 
         showProgressDialog();
 
-        Intent intent = getIntent();
-        String meal = intent.getStringExtra("meal");
-        mRecipeKeyedResult.setText("Results for " + meal);
+
+//        mRecipeKeyedResult.setText("Results for " + meal);
         getRecipes(meal);
 
         Typeface scope = Typeface.createFromAsset(getAssets(),"fonts/scope.ttf");
@@ -128,7 +129,7 @@ public class RecipesActivity extends AppCompatActivity {
                 });
                 e.printStackTrace();
             }
-
+ 
             @Override
             public void onResponse(Call call, Response response) throws IOException {//
                 ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);

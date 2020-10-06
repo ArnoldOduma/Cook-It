@@ -1,9 +1,13 @@
 package com.techspaceke.cookit.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.techspaceke.cookit.R;
@@ -23,6 +27,9 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class RecipeDetailActivity extends AppCompatActivity {
     @BindView(R.id.viewPager) ViewPager mViewpager;
+    @BindView(R.id.my_toolbar)
+    Toolbar mToolBar;
+
     private RecipePagerAdapter mAdapterViewPager;
     ArrayList<Recipes> mRecipes = new ArrayList<>();
 
@@ -31,6 +38,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
         ButterKnife.bind(this);
+
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.primaryColor), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         mRecipes = Parcels.unwrap(getIntent().getParcelableExtra("recipe"));
         int startingPosition = getIntent().getIntExtra("position", 0);

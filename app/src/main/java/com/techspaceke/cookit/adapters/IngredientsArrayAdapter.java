@@ -45,9 +45,7 @@ public class IngredientsArrayAdapter extends BaseAdapter {
         View listView;
         if (convertView == null) {
             listView = inflater.inflate(mLayout, null);
-
             TextView listItemView = listView.findViewById(mTextView);
-
             listItemView.setText(String.valueOf(mIngredients[position]));
 
         } else {

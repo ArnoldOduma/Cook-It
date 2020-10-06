@@ -28,7 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },10);
+        },2000);
 
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(

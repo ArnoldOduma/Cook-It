@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="5dp"
         android:layout_marginHorizontal="9dp"
-        android:background="@drawable/rectangle"
+        android:background="@drawable/rectangle6"
         android:elevation="4dp"
         app:layout_scrollFlags="scroll|enterAlways"/>
 
@@ -36,7 +36,6 @@
         android:background="@color/secondaryTextColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="66dp"
         android:paddingHorizontal="5dp"
         android:transitionName="mealTransition"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -48,10 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
-        android:text="Recipes"
         android:textSize="20sp"
-        android:gravity="center_horizontal"/>
-
-
+        android:gravity="center_horizontal"
+        android:padding="5sp"/>
 
 </RelativeLayout>

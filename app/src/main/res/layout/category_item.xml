@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/rectangle2"
+        android:padding="3dp"
+        android:elevation="5dp">
+
+        <ImageView
+            android:id="@+id/category_thumb"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/beef"
+            android:scaleType="centerCrop"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="Category Name"
+            >
+
+        </ImageView>
+        <TextView
+            android:id="@+id/category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="Category Name"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/primaryColor"
+            android:background="@drawable/rectangle2"
+            android:elevation="5dp"
+            android:layout_margin="3dp">
+
+        </TextView>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

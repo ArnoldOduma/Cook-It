@@ -15,6 +15,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="get_to_choose_from">Get up to 300,000 recipes to choose from.</string>
+    <string name="popular_picks">Popular picks</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="rate_me_fragment">Rate this Recipe</string>
     <string name="search_edit_text">Enter a meal to search...</string>

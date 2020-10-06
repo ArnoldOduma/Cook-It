@@ -14,7 +14,9 @@
     <color name="secondaryDarkColor">#000000</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
+    <color name="secondaryTextColorLight">#d5ffffff</color>
     <color name="gray">#f0f0f0</color>
+
 
     <color name="translucentPrimaryColor">#60ff9c00</color>
     <color name="translucentPrimaryLightColor">#90ffcd48</color>

@@ -1,5 +1,8 @@
 package com.techspaceke.cookit.services;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -7,6 +10,8 @@ import com.google.gson.reflect.TypeToken;
 import com.techspaceke.cookit.Constants;
 import com.techspaceke.cookit.models.Categories;
 import com.techspaceke.cookit.models.Recipes;
+import com.techspaceke.cookit.ui.MainActivity;
+import com.techspaceke.cookit.ui.RecipeDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,32 +30,40 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CategoriesService {
-    public static void listCategories( Callback callback) {
-        OkHttpClient client = new OkHttpClient.Builder().build();
+//    public SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences();
+    public static SharedPreferences.Editor mEditor;
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MEALDB_CATEGORIES_URL).newBuilder();
-//        urlBuilder.addQueryParameter(Constants.MEALDB_NAME_QUERY_PARAMETER, meal);
-        String url = urlBuilder.build().toString();
+    public static void listCategories(Callback callback) {
 
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+            OkHttpClient client = new OkHttpClient.Builder().build();
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MEALDB_CATEGORIES_URL).newBuilder();
+            String url = urlBuilder.build().toString();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
 
-        Call call = client.newCall(request);
-        call.enqueue(callback);
+            Call call = client.newCall(request);
+            call.enqueue(callback);
+
     }
 
     public static List<Categories> processResults(Response response) {
+        SharedPreferences mSharedPreferences;
+
         List<Categories> categories = new ArrayList<>();
         Gson gson = new Gson();
 
-        try{
+        try {
             String data = response.body().string();
             JSONObject dataJson = new JSONObject(data);
             JSONArray recipeArray = dataJson.getJSONArray("categories");
-            if (response.isSuccessful()){
-                Type listType = new TypeToken<List<Categories>>() {}.getType();
-                categories = gson.fromJson(recipeArray.toString(),listType);
+            if (response.isSuccessful()) {
+                Type listType = new TypeToken<List<Categories>>() {
+                }.getType();
+                categories = gson.fromJson(recipeArray.toString(), listType);
+//                mEditor = pref.edit();
+//                mEditor.putString("SavedCategories",recipeArray.toString());
+//                mEditor.commit();
             }
         } catch (IOException e) {
             e.printStackTrace();
